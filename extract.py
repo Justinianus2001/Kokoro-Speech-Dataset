@@ -12,7 +12,7 @@ def read_params_list(data_dir, size):
         print(f"{sys.argv[0]}: error: `data/index.json' is not found. Please download it from the project page.")
         sys.exit(1)
 
-    with open(os.path.join(data_dir, 'index.json')) as f:
+    with open(os.path.join(data_dir, 'index.json'), encoding='utf-8') as f:
         params_list = json.load(f)
 
     return [
@@ -61,7 +61,7 @@ def extract_wav_files(data_dir, params_list, clip_format, sample_rate, output_di
         id_ = params['id']
         metadata_file = os.path.join('data', f'{id_}.metadata.txt')
         audio_dir = os.path.join('data', f'{id_}')
-        with open(metadata_file, 'rt') as metadata_f:
+        with open(metadata_file, 'rt', encoding='utf-8') as metadata_f:
             current_file = None
             current_audio = None
             for line in metadata_f:
@@ -85,11 +85,11 @@ def extract_wav_files(data_dir, params_list, clip_format, sample_rate, output_di
 def write_metafile(data_dir, params_list, output_dir):
 
     metadata_file = os.path.join(output_dir, 'metadata.csv')
-    with open(metadata_file, 'wt') as metadata_f:
+    with open(metadata_file, 'wt', encoding='utf-8') as metadata_f:
         for params in params_list:
             id_ = params['id']
             metadata_file = os.path.join('data', f'{id_}.metadata.txt')
-            with open(metadata_file, 'rt') as transcript_f:
+            with open(metadata_file, 'rt', encoding='utf-8') as transcript_f:
                 for line in transcript_f:
                     parts = line.rstrip('\r\n').split('|')
                     id_, _, _, _, text, voca = parts
